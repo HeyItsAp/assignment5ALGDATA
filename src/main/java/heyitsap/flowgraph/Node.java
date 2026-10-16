@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    private List edges;
+    private List<Edge> edges;
     private final int id;
 
     public Node(int id){
@@ -16,7 +16,7 @@ public class Node {
         return id;
     }
 
-    public List getEdges() {
+    public List<Edge> getEdges() {
         return edges;
     }
 }
