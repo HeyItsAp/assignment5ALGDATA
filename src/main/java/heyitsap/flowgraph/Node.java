@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    private List pointers;
-    private int id;
+    private List edges;
+    private final int id;
 
     public Node(int id){
-        this.pointers = new ArrayList();
+        this.edges = new ArrayList<>();
         this.id = id;
     }
 
@@ -16,7 +16,7 @@ public class Node {
         return id;
     }
 
-    public List getPointers() {
-        return pointers;
+    public List getEdges() {
+        return edges;
     }
 }
