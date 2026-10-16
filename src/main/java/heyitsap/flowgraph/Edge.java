@@ -1,12 +1,12 @@
 package heyitsap.flowgraph;
 
-public class pointer {
-    private int capacity;
+public class Edge {
+    private final int capacity;
     private int flow;
-    private node nodeA;
-    private node nodeB;
+    private Node nodeA;
+    private Node nodeB;
 
-    public pointer(int capacity, node nodeA, node nodeB){
+    public Edge(int capacity, Node nodeA, Node nodeB){
         this.capacity = capacity;
         this.flow = 0;
         this.nodeA = nodeA;
@@ -21,15 +21,15 @@ public class pointer {
         return flow;
     }
 
-    public node getNodeA() {
+    public Node getNodeA() {
         return nodeA;
     }
 
-    public node getNodeB() {
+    public Node getNodeB() {
         return nodeB;
     }
 
     public void removeFromCapacity(int flow){
-        this.capacity = capacity - flow;
+        this.flow = capacity - flow;
     }
 }
