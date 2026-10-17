@@ -1,6 +1,8 @@
 package heyitsap.flowgraph;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 public class FlowGraph {
@@ -20,6 +22,43 @@ public class FlowGraph {
         this.source = null;
         this.sink = null;
     }
+    public int edmondkarp(){
+        int maxFlow = 0;
+        int iteration = 0;
+        while (true) {
+            // BFS: find shortest augmenting path, remembering the edge used to reach each node
+            Edge[] parentEdge = new Edge[nodes.size()];
+            Deque<Node> queue = new ArrayDeque<>();
+            queue.add(source);
+
+            while (!queue.isEmpty() && parentEdge[sink.getId()] == null) {
+                Node cur = queue.poll();
+                for (Edge e : cur.getEdges()) {
+                    Node next = e.getTo();
+                    if (e.rest() > 0 && next != source && parentEdge[next.getId()] == null) {
+                        parentEdge[next.getId()] = e;
+                        queue.add(next);
+                    }
+                }
+            }
+
+            if (parentEdge[sink.getId()] == null) break;   // no augmenting path left
+
+            // Find bottleneck by walking back from sink
+            int bottleneck = Integer.MAX_VALUE;
+            for (Node n = sink; n != source; n = parentEdge[n.getId()].getFrom()) {
+                bottleneck = Math.min(bottleneck, parentEdge[n.getId()].rest());
+            }
+
+            // Augment
+            for (Node n = sink; n != source; n = parentEdge[n.getId()].getFrom()) {
+                parentEdge[n.getId()].setNewFlowStats(bottleneck);
+            }
+            maxFlow += bottleneck;
+        }
+        return maxFlow;
+
+    }
 
     public void addEdge(Node from, Node to, int capaity){
         Edge forward = new Edge(capaity, from, to);
@@ -28,9 +67,6 @@ public class FlowGraph {
         back.setReverse(forward);
         from.getEdges().add(forward);
         to.getEdges().add(back);
-    }
-    public void edmondkarp(){
-
     }
 
     public Node getOrCreateNode(int id) {
