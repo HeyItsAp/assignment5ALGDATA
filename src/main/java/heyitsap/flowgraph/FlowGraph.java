@@ -22,7 +22,12 @@ public class FlowGraph {
     }
 
     public void addEdge(Node from, Node to, int capaity){
-
+        Edge forward = new Edge(capaity, from, to);
+        Edge back = new Edge(0, to, from);
+        forward.setReverse(back);
+        back.setReverse(forward);
+        from.getEdges().add(forward);
+        to.getEdges().add(back);
     }
     public void edmondkarp(){
 
