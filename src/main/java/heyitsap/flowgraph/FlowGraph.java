@@ -21,6 +21,21 @@ public class FlowGraph {
 
     }
 
+    public Node getOrCreateNode(int id) {
+        while (nodes.size() <= id) {
+            addNode();
+        }
+        return nodes.get(id);
+    }
+
+    public Node addNode() {
+        Node n = new Node(nodes.size());
+        nodes.add(n);
+        return n;
+    }
+
+    public List<Node> getNodes() { return nodes; }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
