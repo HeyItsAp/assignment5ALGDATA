@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws Exception
     {
         FlowGraph graph = new FlowGraph();
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/flytgraf3.txt"))){
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/flytgraf1.txt"))){
             br.readLine(); // To skip first line about amount of edges and nodes.
 
             String line;
@@ -23,7 +23,6 @@ public class Main {
 
                 String[] splittedline = line.split("\\s+");
                 if (splittedline.length != 3){
-                    System.out.println("SKIPPED: [" + line + "]");
                     continue;
                 }
 
@@ -40,9 +39,11 @@ public class Main {
         }
 
         int SourceId = 0;
-        int SinkId = 1;
+        int SinkId = 7;
         graph.setSource(graph.getOrCreateNode(SourceId));
         graph.setSink(graph.getOrCreateNode(SinkId));
 
+        int maxFlow = graph.edmondkarp();
+        System.out.println(maxFlow);
     }
 }

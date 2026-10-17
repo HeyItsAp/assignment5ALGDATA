@@ -15,6 +15,7 @@ public class Edge {
     }
 
     public int rest(){return capacity - flow;}
+
     public void setNewFlowStats(int ammount){
         flow += ammount;
         reverse.flow -= ammount;
