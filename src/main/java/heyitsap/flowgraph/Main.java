@@ -1,17 +1,49 @@
 package heyitsap.flowgraph;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+    public static void main(String[] args) throws Exception
+    {
+        FlowGraph graph = new FlowGraph();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+        try {
+            FileReader flytgraf3Fil = new FileReader("src/main/resources/flytgraf3.txt");
+            BufferedReader br = new BufferedReader(flytgraf3Fil);
+            br.readLine(); // To skip first line about amount of edges and nodes.
+
+            String line;
+            while ((line = br.readLine()) != null){
+                line.trim();
+                if (line.isEmpty()) continue;
+                System.out.println(line);
+
+                String[] splittedline = line.split("\\s+");
+                if (splittedline.length != 3){
+                    continue;
+                }
+
+                int IdNode = Integer.parseInt(splittedline[0]);
+                int ToNode = Integer.parseInt(splittedline[1]);
+                int EdgeCapacity = Integer.parseInt(splittedline[2]);
+
+
+                Node From = graph.getOrCreateNode(IdNode);
+                Node To = graph.getOrCreateNode(IdNode);
+                graph.addEdge();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+        graph.setSource(graph.getNodes().get(0));
+        graph.setSink(graph.getNodes().get(graph.getNodes().size() - 1));
+
+        System.out.println(graph);
+
     }
 }
