@@ -12,6 +12,13 @@ public class FlowGraph {
         this.nodes = nodes;
         this.source = nodes.get(0);
         this.sink = nodes.get(nodes.size()-1);
+
+    }
+
+    public FlowGraph(){
+        this.nodes = new ArrayList<>();
+        this.source = null;
+        this.sink = null;
     }
 
     public void addEdge(Node from, Node to, int capaity){
@@ -35,6 +42,14 @@ public class FlowGraph {
     }
 
     public List<Node> getNodes() { return nodes; }
+
+    public void setSink(Node sink) {
+        this.sink = sink;
+    }
+
+    public void setSource(Node source) {
+        this.source = source;
+    }
 
     @Override
     public String toString() {
