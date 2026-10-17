@@ -26,7 +26,7 @@ public class FlowGraph {
         int maxFlow = 0;
         int iteration = 0;
         while (true) {
-            // BFS: find shortest augmenting path, remembering the edge used to reach each node
+            // BFS: find shortest path, remembering the edge used to reach each node
             Edge[] parentEdge = new Edge[nodes.size()];
             Deque<Node> queue = new ArrayDeque<>();
             queue.add(source);
@@ -44,17 +44,31 @@ public class FlowGraph {
 
             if (parentEdge[sink.getId()] == null) break;   // no augmenting path left
 
-            // Find bottleneck by walking back from sink
+            // Find bottleneck by going backwards from sink
             int bottleneck = Integer.MAX_VALUE;
+            Deque<Node> path = new ArrayDeque<>();
             for (Node n = sink; n != source; n = parentEdge[n.getId()].getFrom()) {
                 bottleneck = Math.min(bottleneck, parentEdge[n.getId()].rest());
+                path.addFirst(n);
             }
+            path.addFirst(source);
 
-            // Augment
+            // Calculate new flow
             for (Node n = sink; n != source; n = parentEdge[n.getId()].getFrom()) {
                 parentEdge[n.getId()].setNewFlowStats(bottleneck);
             }
             maxFlow += bottleneck;
+            iteration++;
+
+            // Printing out:
+            StringBuilder sb = new StringBuilder();
+            for (Node n : path) {
+                if (sb.length() > 0) sb.append(" -> ");
+                sb.append(n.getId());
+            }
+            System.out.println("Path " + iteration + ": " + sb
+                    + "  | added flow: " + bottleneck
+                    + "  | total: " + maxFlow);
         }
         return maxFlow;
 

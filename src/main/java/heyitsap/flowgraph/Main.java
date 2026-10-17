@@ -19,7 +19,6 @@ public class Main {
             while ((line = br.readLine()) != null){
                 line = line.trim();
                 if (line.isEmpty()) continue;
-                System.out.println(line);
 
                 String[] splittedline = line.split("\\s+");
                 if (splittedline.length != 3){
@@ -39,7 +38,7 @@ public class Main {
         }
 
         int SourceId = 0;
-        int SinkId = 7;
+        int SinkId = 1;
         graph.setSource(graph.getOrCreateNode(SourceId));
         graph.setSink(graph.getOrCreateNode(SinkId));
 
