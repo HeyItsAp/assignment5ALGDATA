@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws Exception
     {
         FlowGraph graph = new FlowGraph();
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/flytgraf2.txt"))){
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/flytgraf3.txt"))){
             br.readLine(); // To skip first line about amount of edges and nodes.
 
             String line;
